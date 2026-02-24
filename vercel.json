@@ -7,7 +7,7 @@
     },
     {
       "source": "/(.*)",
-      "destination": "/api/download.ts"
+      "destination": "/api/download.js"
     }
   ],
   "headers": [
@@ -34,9 +34,10 @@
     }
   ],
   "functions": {
-    "api/**/*.ts": {
+    "api/**/*.js": {
       "maxDuration": 30,
       "memory": 1024
     }
   }
 }
+
