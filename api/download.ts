@@ -1,13 +1,8 @@
-
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { scrapeTikTok } from '../lib/tiktok-scraper.js';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  // Enable CORS
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
+  // CORS is now handled by vercel.json headers, but keep for safety
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
@@ -22,11 +17,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (!url || typeof url !== 'string') {
       return res.status(400).json({ 
         status: 'error', 
-        message: 'URL parameter is required' 
+        message: 'URL parameter is required. Usage: /api/download?url=https://tiktok.com/...' 
       });
     }
 
-    // Validate TikTok URL
     if (!url.includes('tiktok.com')) {
       return res.status(400).json({ 
         status: 'error', 
